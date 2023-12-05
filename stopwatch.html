@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Stopwatch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-size: 2em;
+        }
+        
+        .js_stopwatch {
+            margin: auto;
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .js_stopwatch > .timer {
+            border: 1px solid red;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgb(45, 3, 3);
+            color: antiquewhite;
+        }
+
+        .js_stopwatch_control {
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        input[type="text"] {
+            width: 110px;
+            font-size: 2em;
+            text-align: center;
+            /* padding: 0pxpx; */
+            background-color: rgb(241, 122, 122);
+            border: none;
+            outline: none;
+            position: relative;
+        }
+
+        .js_stopwatch_control > button {
+            padding: 10px;
+            font-size: 1em;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="js_stopwatch">
+        <div class="timer">
+            <input type="text" id="hrs" min="0" value="0">
+            <label>Hours</label>
+        </div>
+
+        <div class="timer">
+            <input type="text" id="mnt" min="0" value="0">
+            <label>Minutes</label>
+        </div>
+
+        <div class="timer">
+            <input type="text" id="sec" min="0" value="1">
+            <label>Seconds</label>
+        </div>
+    </div>
+
+    <div class="js_stopwatch_control">
+        <button onclick="start()">Start</button>
+        <button onclick="pause()">Pause</button>
+        <button onclick="reset()">Reset</button>
+    </div>
+</body>
+<script>
+    let totalSeconds;
+    let timer;
+    let display = document.getElementById('dis');
+    function start(){
+        totalSeconds = 
+        (Number(document.getElementById('hrs').value * 3600)+
+        Number(document.getElementById('mnt').value * 60)+
+        Number(document.getElementById('sec').value));
+
+        timer = setInterval(updateTimer, 1000)
+    }
+
+    function updateTimer() {
+        
+        let hrs = Math.floor(totalSeconds/3600);
+        let mnt = Math.floor((totalSeconds % 3600) / 60);
+        let sec = totalSeconds % 60;
+
+        document.getElementById('hrs').value = hrs;
+        document.getElementById('mnt').value = mnt;
+        document.getElementById('sec').value = sec;
+
+        totalSeconds++;
+    }
+
+    function pause() {
+        clearInterval(timer);
+    }
+
+    function reset() {
+        document.getElementById('hrs').value = 0;
+        document.getElementById('mnt').value = 0;
+        document.getElementById('sec').value = 1;
+        clearInterval(timer);
+    }
+</script>
+</html>

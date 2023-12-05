@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/45f40d86eb.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/45f40d86eb.js" crossorigin="anonymous"></script>
+    <title>Slider Using HTML CSS JS</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #container{
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            height: 90vh;
+        }
+        button{
+            width: 60px;
+            background-color: transparent;
+            cursor: pointer;
+            border: none;
+        }
+        .img_box{
+            width: 90%;
+            height: 90vh;
+            position: absolute;
+            z-index: -1;
+        }
+        .img_box > img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="img_box">
+            <img src="https://picsum.photos/id/237/4000/3000" alt="">
+        </div>
+        <button id="prev"><i class="fa-solid fa-backward"></i></button>
+        <button id="next"><i class="fa-solid fa-forward"></i></button>
+    </div>
+</body>
+</html>
+<script>
+    
+    let imgArray = [
+        "https://picsum.photos/id/236/4000/3000",
+        "https://picsum.photos/id/237/4000/3000",
+        "https://picsum.photos/id/238/4000/3000",
+        "https://picsum.photos/id/239/4000/3000",
+        "https://picsum.photos/id/240/4000/3000"
+    ];
+
+    let image = document.querySelector('img');
+    let prev = document.getElementById('prev');
+    let next = document.getElementById('next');
+    let currentImage = 0;
+    image.setAttribute('src', imgArray[currentImage]);
+
+    prev.addEventListener('click', function()
+    {
+        currentImage--;
+        if(currentImage < 0)
+        {
+            currentImage = imgArray.length - 1;
+        }
+        image.setAttribute('src', imgArray[currentImage]);
+    })
+    next.addEventListener('click', function()
+    {
+        currentImage++;
+        if(currentImage >= imgArray.length - 1){
+            currentImage = 0;
+        }
+        image.setAttribute('src', imgArray[currentImage]);
+    })
+
+</script>

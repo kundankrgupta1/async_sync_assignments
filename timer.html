@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Timer</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body{
+            font-size: 2em;
+        }
+        
+        .js_timer{
+            margin: auto;
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .js_timer_control{
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        input[type="text"] {
+            width: 100px;
+            font-size: 2em;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .js_timer_control > button {
+            padding: 10px;
+            font-size: 1em;
+        }
+
+        .time_up{
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="js_timer">
+        <label>Hours:</label>
+        <input type="text" id="hrs" min="0" value="0">
+
+        <label>Minutes:</label>
+        <input type="text" id="mnt" min="0" value="0">
+
+        <label>Seconds:</label>
+        <input type="text" id="sec" min="0" value="0">
+    </div>
+    <div class="js_timer_control">
+        <button onclick="start()">Start</button>
+        <button onclick="pause()">Pause</button>
+        <button onclick="reset()">Reset</button>
+    </div>
+    <div class="time_up">
+        <h1 id="dis"></h1>
+    </div>
+</body>
+<script>
+    let totalSeconds;
+    let timer;
+    let display = document.getElementById('dis');
+    function start(){
+        totalSeconds = 
+        (Number(document.getElementById('hrs').value * 3600)+
+        Number(document.getElementById('mnt').value * 60)+
+        Number(document.getElementById('sec').value));
+
+        if(totalSeconds <= 0){
+            alert("Enter a valid time")
+            return
+        }
+
+        timer = setInterval(updateTimer, 1000)
+    }
+
+    function updateTimer() {
+        if(totalSeconds <= 0){
+            display.innerText = `Time Up`;
+            clearInterval(timer);
+        }
+
+        let hrs = Math.floor(totalSeconds/3600);
+        let mnt = Math.floor((totalSeconds % 3600) / 60);
+        let sec = totalSeconds % 60;
+
+        document.getElementById('hrs').value = hrs;
+        document.getElementById('mnt').value = mnt;
+        document.getElementById('sec').value = sec;
+
+        totalSeconds--;
+    }
+
+    function pause() {
+        clearInterval(timer);
+    }
+
+    function reset() {
+        document.getElementById('hrs').value = 0;
+        document.getElementById('mnt').value = 0;
+        document.getElementById('sec').value = 0;
+        clearInterval(timer);
+    }
+
+</script>
+</html>
